@@ -40,15 +40,13 @@ function showHome() {
 const formOpenBtn = document.querySelector("#form-open"),
   home = document.querySelector(".home"),
   formContainer = document.querySelector(".form_container"),
-  formCloseBtn = document.querySelector(".form_close"),
   signupBtn = document.querySelector("#signup"),
   loginBtn = document.querySelector("#login"),
   pwShowHide = document.querySelectorAll(".pw_hide"),
   loginButton = document.querySelector("#login_now"),
-  signup_Now = document.querySelector("#signup_Now");
+  signup_Button = document.querySelector("#signup_Now");
 document.addEventListener("DOMContentLoaded", showHome);
 formOpenBtn.addEventListener("click", () => home.classList.add("show"));
-formCloseBtn.addEventListener("click", () => home.classList.remove("show"));
 
 
 pwShowHide.forEach((icon) => {
@@ -79,7 +77,7 @@ loginButton.addEventListener("click", (e) => {
   e.preventDefault();
 
   const usernameInput = document.querySelector("#username").value.trim();
-  const passwordInput = document.querySelector("#password").value.trim();
+  const passwordInput = document.querySelector("#password_login").value.trim();
 
   if (!usernameInput || !passwordInput) {
     alert("Please enter username and password.");
@@ -92,11 +90,11 @@ loginButton.addEventListener("click", (e) => {
     alert("Invalid username or password. Please try again.");
   }
 });
-signup_Now.addEventListener("click", (e) => {
+signup_Button.addEventListener("click", (e) => {
   e.preventDefault();
 
   const usernameInput = document.querySelector("#username").value.trim();
-  const passwordInput = document.querySelector("#password").value.trim();
+  const passwordInput = document.querySelector("#password_signUp").value.trim();
   const passwordConfirm = document.querySelector("#Confirm_password").value.trim();
 
   if (!usernameInput || !passwordInput || !passwordConfirm) {

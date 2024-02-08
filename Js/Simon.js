@@ -103,9 +103,6 @@ function two() {
 }
 
 function three() {
-
-
-    
   if (noise) {
     let audio = document.getElementById("clip3");
     audio.play();
