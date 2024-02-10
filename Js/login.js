@@ -26,17 +26,17 @@ function addUserToLocalStorage(newUser) {
 
 function authenticateUser(username, password) {
   const users = getUsersFromLocalStorage();
-  return users.some(user => user.username === username && user.password === password);
+  return users.some(user => user.username == username && user.password == password);
 }
 
 function getUserByUsername(username) {
   const users = getUsersFromLocalStorage();
   return users.find(user => user.username === username);
 }
+
 function showHome() {
   home.classList.add("show");
 }
-
 const formOpenBtn = document.querySelector("#form-open"),
   home = document.querySelector(".home"),
   formContainer = document.querySelector(".form_container"),
@@ -45,9 +45,9 @@ const formOpenBtn = document.querySelector("#form-open"),
   pwShowHide = document.querySelectorAll(".pw_hide"),
   loginButton = document.querySelector("#login_now"),
   signup_Button = document.querySelector("#signup_Now");
+
 document.addEventListener("DOMContentLoaded", showHome);
 formOpenBtn.addEventListener("click", () => home.classList.add("show"));
-
 
 pwShowHide.forEach((icon) => {
   icon.addEventListener("click", () => {
@@ -61,7 +61,6 @@ pwShowHide.forEach((icon) => {
     }
   });
 });
-
 
 signupBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -77,6 +76,7 @@ loginButton.addEventListener("click", (e) => {
   e.preventDefault();
 
   const usernameInput = document.querySelector("#username").value.trim();
+  
   const passwordInput = document.querySelector("#password_login").value.trim();
 
   if (!usernameInput || !passwordInput) {
@@ -85,11 +85,15 @@ loginButton.addEventListener("click", (e) => {
   }
 
   if (authenticateUser(usernameInput, passwordInput)) {
-    window.location.href = "welcome.html";
-  } else {
+      localStorage.setItem('username', usernameInput);
+       window.location.href = "Games_Home.html";
+  } 
+  else {
     alert("Invalid username or password. Please try again.");
   }
+
 });
+
 signup_Button.addEventListener("click", (e) => {
   e.preventDefault();
 
@@ -101,10 +105,12 @@ signup_Button.addEventListener("click", (e) => {
     alert("Please enter username  password and password Confirm.");
     return;
   }
-  if (passwordConfirm!= passwordInput){
+
+  if (passwordConfirm != passwordInput) {
     alert("The passwords you entered do not match, please re-enter");
     return;
   }
+
   // בדיקה האם המשתמש כבר קיים במערכת
   if (getUserByUsername(usernameInput)) {
     alert("Username already exists. Please choose a different one.");
