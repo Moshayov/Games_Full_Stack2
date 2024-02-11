@@ -1,0 +1,62 @@
+ /*Icon*/
+ .fa-user {
+    /*float: right ; הזזת האיקון לצד ימין */
+    margin-top: 10px;
+    position: absolute; /* קביעת פוזיציית אבסולוט לאייקון */
+    top: 50%; /* מיקום אנכי מרכזי לאייקון */
+    transform: translateY(-50%); /* מיקום אנכי אמצעי עבור האייקון */
+    right: 80px; /* מרווח מימין */
+    margin-right: 30px; 
+
+
+  }
+#username-text {
+    position: relative; /* קביעת פוזיציית אבסולוט לשם המשתמש */
+    top: 50%; /* מיקום אנכי מרכזי לשם המשתמש */
+    transform: translateY(-50%); /* מיקום אנכי אמצעי עבור שם המשתמש */
+    left: 10px;
+
+}
+.user-info {
+  display: flex ;
+  align-items: center;
+  right: 10px;
+
+}
+/*Image Game*/
+.game_images{
+    display: grid;
+    gap: 2rem 1rem;
+    padding-bottom: 3rem;
+    grid-template-columns:1fr 1fr 1fr 1fr 1fr ;
+    flex-direction: row; /* שינוי לרוחב */
+}
+.game_images img:hover{
+    transform: scale(1.1);
+    border-radius: 10px;
+  }
+
+.G_image{
+
+  height: 10rem;
+  margin-left:50px;
+  margin-top: 20px;
+  margin-right: 25px;
+  border-radius: 5px/*var(--borderRadius)*/;
+  margin-bottom: 1rem;
+  width: 200px;
+}
+
+.G_Link{
+    display: block;
+  color:  #404042;
+  text-decoration: none;
+}
+h5 {
+    margin-top: 1rem; /* הוספת מרווח מעל לכותרת */
+    margin-bottom: 0; /* מסירת מרווח מתחת לכותרת */
+    color: var(--grey-700);
+    font-size: 1.15rem;
+    align-items: center;
+      
+  }

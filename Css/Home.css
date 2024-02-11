@@ -6,12 +6,16 @@
 }
 /* Home */
 .home {
+    display: grid;
+    gap: 2rem 1rem;
+    place-items: center; /* מקם את האלמנטים במרכז המסך */
     position: relative;
     height: 100vh;
     width: 100%;
     background-image: url("../img/bacground/background\ img.jpeg");
     background-size: cover;
     background-position: center;
+    z-index: 0; 
      /* הבהרת התמונה */
      filter: brightness(120%);
   }
@@ -21,7 +25,7 @@
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: 100;
+    /*z-index: 100;*/
     opacity: 0;
     pointer-events: none;;
     transition: all 0.5s ease-out;
@@ -29,29 +33,6 @@
   .home.show::before {
     opacity: 1;
     pointer-events: auto;
-  }
-  /* From */
-  .form_container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* או justify-content: space-between; בהתאם לרצונך */
-    position: relative;
-    max-width: 320px;
-    width: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1.2);
-    z-index: 101;
-    background: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.4s ease-out;
-  }
-  .form_container a {
-    margin: 10px; /* כדי ליצור מרווח בין התמונות */
   }
  /*Header*/
  .header {
@@ -94,54 +75,7 @@
     margin-left: 50px;
     top:20px;
   }
-/*button*/
-.button {
-    padding: 6px 24px;
-    border: 2px solid #fff;
-    background: transparent;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  .button:active {
-    transform: scale(0.98);
-  }
-  /*Icon*/
-  .fa-user {
-    /*float: right ; הזזת האיקון לצד ימין */
-    margin-top: 10px;
-    position: absolute; /* קביעת פוזיציית אבסולוט לאייקון */
-    top: 50%; /* מיקום אנכי מרכזי לאייקון */
-    transform: translateY(-50%); /* מיקום אנכי אמצעי עבור האייקון */
-    right: 80px; /* מרווח מימין */
-    margin-right: 30px; 
 
 
-  }
-#username-text {
-    position: relative; /* קביעת פוזיציית אבסולוט לשם המשתמש */
-    top: 50%; /* מיקום אנכי מרכזי לשם המשתמש */
-    transform: translateY(-50%); /* מיקום אנכי אמצעי עבור שם המשתמש */
-    left: 10px;
 
-}
-.user-info {
-  display: flex ;
-  align-items: center;
-  right: 10px;
-
-}
-.game_images {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.game_images a {
-  flex: 1 0 calc(25% - 10px); /* כדי להבין איך זה עובד, הנה הפירוט: גמישות בגודל ובכיוון הצפון, לא יתרון בגודל, בערך 25% מהרוחב עם מרווח של 10 פיקסלים בין התמונות */
-  margin: 5px; /* מרווח קטן בין התמונות */
-}
-
-.game_images img {
-  width: 100%;
-  height: auto;
-}
 
