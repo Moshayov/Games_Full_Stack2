@@ -7,7 +7,7 @@
 /* Home */
 .home {
     display: grid;
-    gap: 2rem 1rem;
+    gap: 1rem 1rem;
     place-items: center; /* מקם את האלמנטים במרכז המסך */
     position: relative;
     height: 100vh;
@@ -67,14 +67,20 @@
   .nav_link:hover {
     color: #d9d9d9;
   }
-  /*Logo*/
-  .logo{
-    color: #fff;
-
-    font-size: 25px;
-    margin-left: 50px;
-    top:20px;
+  #logo {
+    position: relative;
+    left: 20px; /* להזיז את הלוגו לאמצע */
+    padding-top: 100px;
+  
   }
+  
+#logo img{
+  top:0;
+  margin-left: 20px;
+  height: 200px;
+  width: 200px;
+}
+
 
 
 

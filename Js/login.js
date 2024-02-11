@@ -6,7 +6,6 @@ class User {
     this.Cup_Score = Cup_Score;
   }
 }
-
 const USERS_KEY = "users";
 
 function getUsersFromLocalStorage() {
@@ -122,3 +121,11 @@ signup_Button.addEventListener("click", (e) => {
   addUserToLocalStorage(newUser);
   alert("User registered successfully!");
 });
+/*Game Home*/
+const username = localStorage.getItem('username');
+const user = getUserByUsername(username);
+var usernameElement = document.getElementById("username-text");
+usernameElement.textContent = username;
+high_score = user.Cup_Score + user.Simon_Score;
+var userScore = document.getElementById("High_Score");
+userScore.textContent = high_score; 
