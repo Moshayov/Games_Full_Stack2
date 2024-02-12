@@ -3,19 +3,11 @@ body {
   background-image: url("../img/bacground/background_img.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
-  width: 100%;
   background-position: center;
   }
   
 /*Image Game*/
 .game_images{
-  /*
-    display: grid;
-    gap: 2rem 1rem;
-    padding-bottom: 3rem;
-    grid-template-columns:1fr 1fr 1fr 1fr 1fr ;
-    flex-direction: row; /* שינוי לרוחב */
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -50,7 +42,6 @@ body {
 }
 
 .G_Link h5 {
-    margin-top: 1.5rem; /* הוספת מרווח מעל לכותרת */
     color: var(--grey-700);
     font-size: 2vw;
     align-items: center;
@@ -77,6 +68,4 @@ body {
     top:-40px;
     position: absolute;
     padding-top: 0;
-
-
   }

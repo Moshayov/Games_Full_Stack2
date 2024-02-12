@@ -20,10 +20,16 @@ h1 {
     text-shadow: 2px 2px #010e1d;
 }
 
+#logo{
+  position: absolute;
+  left:3%;
+  top:0;
+}
+
 .info{
   position: absolute;
   left:5%;
-  top:5%;
+  top:15%;
 }
 
 .cups-container {

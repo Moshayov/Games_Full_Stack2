@@ -16,3 +16,16 @@ usernameElement.textContent = username;
 high_score = user.Cup_Score + user.Simon_Score;
 var userScore = document.getElementById("High_Score");
 userScore.textContent = high_score;
+
+
+var data = getUsersFromLocalStorage()
+var maxScore = 0;
+data.forEach(function(item) {
+    var totalScore = item.Simon_Score + item.Cup_Score;
+    if (totalScore > maxScore) {
+        maxScore = totalScore;
+    }
+});
+
+var generalScore = document.getElementById("General_High_Score");
+generalScore.textContent = maxScore;
