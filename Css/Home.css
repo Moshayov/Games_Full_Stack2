@@ -5,11 +5,8 @@
   font-family: "Poppins", sans-serif;
 }
 /* Home */
-.home {
-    display: grid;
-    gap: 2rem 1rem;
+body {
     place-items: center;
-    position: relative;
     height: 100vh;
     width: 100%;
     background-image: url("../img/bacground/background\ img.jpeg");
@@ -25,7 +22,7 @@
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    /*z-index: 100;*/
+    z-index: 1;
     opacity: 0;
     pointer-events: none;;
     transition: all 0.5s ease-out;
@@ -36,7 +33,7 @@
   }
  /*Header*/
  .header {
-    position:fixed;
+  position:relative;
     height: 80px;
     width: 100%;
     z-index: 100;
@@ -44,30 +41,6 @@
     align-items: center;
   }
 
-/*nav*/
-  .nav {
-    max-width: 1100px;
-    width: 100%;
-    margin: 0 auto;
-  }
-  .nav,
-  .nav_item {
-    display: flex;
-    height: 100%;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .nav_link,
-  .button {
-    color: #fff;
-    top:50px;
-  }
-  .nav_item {
-    column-gap: 25px;
-  }
-  .nav_link:hover {
-    color: #d9d9d9;
-  }
   #logo {
     position: relative;
     left: 20px; /* להזיז את הלוגו לאמצע */
