@@ -57,7 +57,6 @@ function getUserByUsername(username) {
 function showHome() {
   home.classList.add("show");
 }
-const formOpenBtn = document.querySelector("#form-open"),
   home = document.querySelector(".home"),
   formContainer = document.querySelector(".form_container"),
   signupBtn = document.querySelector("#signup"),
@@ -65,8 +64,7 @@ const formOpenBtn = document.querySelector("#form-open"),
   pwShowHide = document.querySelectorAll(".pw_hide"),
   loginButton = document.querySelector("#login_now"),
   signup_Button = document.querySelector("#signup_Now");
-document.addEventListener("DOMContentLoaded", showHome);
-formOpenBtn.addEventListener("click", () => home.classList.add("show"));
+  document.addEventListener("DOMContentLoaded", showHome);
 const EXPMINUTES=2;
 let numOfTry=0;
 
