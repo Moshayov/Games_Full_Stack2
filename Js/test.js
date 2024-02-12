@@ -7,6 +7,7 @@ $(document).ready(function(){
 
     playButton.addEventListener('click', function () {
       playButton.style.display= 'none';
+      p.innerHTML="";
       // Raise the middle cup
       $('.cup').eq(1).animate({bottom: '20%'});
       ball.style.display = 'block';
@@ -54,7 +55,7 @@ $(document).ready(function(){
     }
 
     function finishShuffle() {
-      ball.position().left=  $('#cup1').position().left;
+      ball.style.left=  cups[1].style.left;
       p.innerHTML = "Tap which cup has the ball";
       
     }
