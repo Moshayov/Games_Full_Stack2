@@ -10,16 +10,32 @@ class User {
 }
 const USERS_KEY = "users";
 
-function displayLastLoginTime(lastLoginTime) {
-  const messageDiv = document.createElement("div");
-  messageDiv.classList.add("login-message");
-  messageDiv.textContent = `Last Login: ${lastLoginTime}`;
-  document.body.appendChild(messageDiv);
-  setTimeout(() => {
-    messageDiv.remove();
-  }, 5000);
-}
+function displayDateMessage(Date) {
+  let message = "";
+  let previousScoreMessage = "";
+  message = `Last Login: ${Date}`;
+  // Create a new div element
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
 
+  // Create content inside the modal
+  modal.innerHTML = `
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>${message}</p>
+      <p>${previousScoreMessage}</p>
+    </div>
+  `;
+
+  // Append the modal to the body
+  document.body.appendChild(modal);
+  // Close the modal when the close button is clicked
+  const closeButton = modal.querySelector(".close");
+   closeButton.addEventListener("click", () => {
+    window.location.href = "Games_Home.html";
+  });
+
+}
 function updateUser(username,Date) {
   const users = getUsersFromLocalStorage();
   const userIndex = users.findIndex(user => user.username === username);
@@ -117,11 +133,14 @@ loginButton.addEventListener("click", (e) => {
       const currentUser = users[userIndex];
       // קבלת מידע על הזמן הנוכחי
       const currentDate = new Date();
-      if(currentUser.count!=0){
-         displayLastLoginTime(currentUser.currentDate);
+      if(currentUser.count==0){
+        updateUser(usernameValue,currentDate);
+        console.log("hii it me")
+        window.location.href = "Games_Home.html";
       }
       updateUser(usernameValue,currentDate);
-      window.location.href = "Games_Home.html";
+      displayDateMessage(currentUser.currentDate);
+
   } 
   else {
       numOfTry++;

@@ -107,7 +107,7 @@ function updateUserScore(username, newScore) {
     currentUser.Simon_Score = newScore;
     saveUsersToLocalStorage(users);
     high_score_user = newScore;
-    userScore.textContent = newScore;
+    userScore.innerHTML = newScore;
     if (newScore > highestScoringUser.Simon_Score) {
       displayResultMessage("win",newScore,currentScore,highestScoringUser.Simon_Score);
     } else {
@@ -326,7 +326,14 @@ function check() {
       flash = 0;
       turnCounter.innerHTML = turn;
   }
-  if (turn == playerOrder.length && good && !win) {
+     if (turn == playerOrder.length && good && !win) {
+      const users = getUsersFromLocalStorage();
+      const userIndex = users.findIndex(user => user.username === username);
+      const currentUser = users[userIndex];
+      const currentScore = currentUser.Simon_Score;
+    if (turn > currentScore) {
+      userScore.innerHTML = turn;
+    }
     turn++;
     playerOrder = [];
     compTurn = true;
