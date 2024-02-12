@@ -18,7 +18,117 @@ const bottomRight = document.querySelector("#bottomright");
 const strictButton = document.querySelector("#strict");
 const onButton = document.querySelector("#on");
 const startButton = document.querySelector("#start");
+//to find the high score among all the player
+const USERS_KEY = "users";
+function getUserByUsername(username) {
+  const users = getUsersFromLocalStorage();
+  return users.find(user => user.username === username);
+}
+function getUsersFromLocalStorage() {
+  const usersJSON = localStorage.getItem(USERS_KEY);
+  return usersJSON ? JSON.parse(usersJSON) : [];
+}
 
+function getHighestScoringUser() {
+  const users = getUsersFromLocalStorage();
+  let highestScoringUser = null;
+  let highestScore = 0;
+
+  users.forEach(user => {
+    if (user.Simon_Score > highestScore) {
+      highestScore = user.Simon_Score;
+      highestScoringUser = user;
+    }
+  });
+
+  return highestScoringUser;
+}
+const username = localStorage.getItem('username');
+
+/*adding score of the highest score player*/ 
+var usernameElement = document.getElementById("username-text");
+const user = getUserByUsername(username);
+
+usernameElement.textContent = username;
+
+let high_score_user = user.Cup_Score + user.Simon_Score;
+var userScore = document.getElementById("High_Score");
+userScore.textContent = high_score_user;
+
+const highestScoringUser = getHighestScoringUser();
+function displayResultMessage(result, newScore, currentScore, highestScoringUser) {
+  let message = "";
+  let previousScoreMessage = "";
+
+  // Checking the result and setting the message accordingly
+  if (result === "win") {
+    message = `Congratulations! \n You have broken the Simon Game high score! 🏆 \n Previous High Score: ${highestScoringUser} \n Your Scoring User: ${newScore}`;
+  } else if (result === "breakPersonalBest") {
+    message = `Congratulations! \n You've broken your personal best high score! 🎉 \n  Previous High Score: ${currentScore} \n Your Scoring : ${newScore}`;
+  } else {
+    message = `Game Over! \n Your score: ${turn - 1}`;
+  }
+  // Create a new div element
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
+
+  // Create content inside the modal
+  modal.innerHTML = `
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>${message}</p>
+      <p>${previousScoreMessage}</p>
+    </div>
+  `;
+
+  // Append the modal to the body
+  document.body.appendChild(modal);
+
+  // Close the modal when the close button is clicked
+  const closeButton = modal.querySelector(".close");
+  closeButton.addEventListener("click", () => {
+    modal.remove();
+  });
+}
+
+function updateUserScore(username, newScore) {
+  const users = getUsersFromLocalStorage();
+  const userIndex = users.findIndex(user => user.username === username);
+
+  if (userIndex === -1) {
+    console.error("User not found in local storage!");
+    return;
+  }
+
+  const currentUser = users[userIndex];
+  const currentScore = currentUser.Simon_Score;
+
+  if (newScore > currentScore) {
+    currentUser.Simon_Score = newScore;
+    saveUsersToLocalStorage(users);
+    high_score_user = newScore;
+    userScore.textContent = newScore;
+    if (newScore > highestScoringUser.Simon_Score) {
+      displayResultMessage("win",newScore,currentScore,highestScoringUser.Simon_Score);
+    } else {
+      displayResultMessage("breakPersonalBest",newScore,currentScore,highestScoringUser.Simon_Score);
+    }
+  } else {
+    displayResultMessage("gameOver",newScore,currentScore,highestScoringUser.Simon_Score);
+  }
+}
+
+/*Win*/
+function winGame() {
+  flashColor();
+  console.log(turn);
+  updateUserScore(username,turn);
+  
+  turnCounter.innerHTML = "WIN!";
+  on = false;
+  win = true;
+
+}
 strictButton.addEventListener('click', (event) => {
   if (strictButton.checked == true) {
     strict = true;
@@ -44,7 +154,9 @@ startButton.addEventListener('click', (event) => {
     play();
   }
 });
-
+function saveUsersToLocalStorage(users) {
+  localStorage.setItem(USERS_KEY, JSON.stringify(users));
+}
 function play() {
   win = false;
   fail = false;
@@ -200,28 +312,20 @@ function check() {
 //if he fail then i need to check if strict mode is on
   if (!good &&!strict) {
     flashColor();
-    updateUserScore(usernameElement,turnCounter);
     console.log(turnCounter);
+    updateUserScore(username,turn);
     turnCounter.innerHTML = "Fail!";
     on = false;//end game
     fail = true;
-    setTimeout(() => {
-      turnCounter.innerHTML = turn;
-      clearColor();
-      if (strict) {
-        play();
-      }/* else {
-        compTurn = true;
-        flash = 0;
-        playerOrder = [];
-        good = true;
-        intervalId = setInterval(gameTurn, 800);
-      }*/
-    }, 800);
-
+    
     noise = false;
   }
-
+  else if(!good&&strict){
+      playerOrder = [];
+      compTurn = true;
+      flash = 0;
+      turnCounter.innerHTML = turn;
+  }
   if (turn == playerOrder.length && good && !win) {
     turn++;
     playerOrder = [];
@@ -233,53 +337,16 @@ function check() {
 
 }
 
-/*adding score of the highest score player*/ 
-var usernameElement = document.getElementById("username-text");
-usernameElement.textContent = username;
-
-high_score_user = user.Cup_Score + user.Simon_Score;
-var userScore = document.getElementById("High_Score");
-userScore.textContent = high_score_user;
-
-//high score among all the player
-const USERS_KEY = "users";
-
-function getUsersFromLocalStorage() {
-  const usersJSON = localStorage.getItem(USERS_KEY);
-  return usersJSON ? JSON.parse(usersJSON) : [];
-}
-
-function getHighestScoringUser() {
-  const users = getUsersFromLocalStorage();
-  let highestScoringUser = null;
-  let highestScore = 0;
-
-  users.forEach(user => {
-    if (user.Simon_Score > highestScore) {
-      highestScore = user.Simon_Score;
-      highestScoringUser = user;
-    }
-  });
-
-  return highestScoringUser;
-}
-const highestScoringUser = getHighestScoringUser();
-
-function updateUserScore(username, newScore) {
-  const users = getUsersFromLocalStorage();
-  const userIndex = users.findIndex(user => user.username === username);
-  if (userIndex !== -1) {
-    users[userIndex].Simon_Score = newScore;
-    saveUsersToLocalStorage(users);
-  }
-}
-/*Win*/
-function winGame() {
-  flashColor();
-  updateUserScore(usernameElement,turnCounter);
-  console.log(turnCounter);
-  turnCounter.innerHTML = "WIN!";
-  on = false;
-  win = true;
-
-}
+/*setTimeout(() => {
+      turnCounter.innerHTML = turn;
+      clearColor();
+      if (strict) {
+        play();
+      }/* else {
+        compTurn = true;
+        flash = 0;
+        playerOrder = [];
+        good = true;
+        intervalId = setInterval(gameTurn, 800);
+      }
+    }, 800);*/

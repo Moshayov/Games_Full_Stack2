@@ -28,33 +28,36 @@
   color:  #404042;
   text-decoration: none;
 }
-h5 {
+.G_Link h5 {
     margin-top: 1.5rem; /* הוספת מרווח מעל לכותרת */
     color: var(--grey-700);
     font-size: 1.15rem;
     align-items: center;
+    left:40px ;
+    align-content: center;
     margin-bottom: 1.38rem;
     font-family: var(--headingFont);
     font-weight: bold;
     line-height: 1.3;
-    
+    color:rgba(66, 64, 64, 0.705);
     text-transform: capitalize;
-    margin-left: 20px;
+    margin-left: 90px;
     letter-spacing: var(--letterSpacing);
       
-  }
+  }/*
   .G_Link h5 {
-    position: absolute; /* קביעת פוזיציית אבסולוט עבור הכותרת בתוך הלינק */
-    top: 50%; /* מיקום אנכי מרכזי לכותרת */
-    left: 50%; /* מיקום אופקי מרכזי לכותרת */
-    transform: translate(-50%, -50%); /* מיקום אנכי ואופקי אמצעי עבור הכותרת */
-    margin: 0; /* איפוס מרווחים כדי למנוע השפעה חיצונית */
-  }
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    margin: 0; /* איפוס מרווחים כדי למנוע השפעה חיצונית 
+  }*/
   /*Logo*/
-  .logo{
+  #logo{
     margin-left: 50px;
-    top:0;
+    top:-40px;
     position: absolute;
-    padding-top: 5px;
-    margin-top: 10px; 
+    padding-top: 0;
+
+
   }
