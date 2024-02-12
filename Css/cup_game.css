@@ -13,8 +13,17 @@ body {
 }
   
 h1 {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
     position: relative; 
     margin-top: 50px;
+    color:#fff;
+    text-shadow: 2px 2px #010e1d;
+}
+
+.info{
+  position: absolute;
+  left:5%;
+  top:5%;
 }
 
 .cups-container {
