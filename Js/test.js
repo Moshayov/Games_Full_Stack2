@@ -2,38 +2,63 @@ const ball = document.querySelector('.ball');
 const p = document.querySelector('p');
 const cups = document.querySelectorAll('.cup');
 const playButton = document.querySelector('.play-button');
+const score= document.querySelector('.info h2');
+const slider=  document.querySelector('.slider');
+const speed_header=document.querySelector("#speed");
+let mode= 'ready'
+let level;
+let speed;
 $(document).ready(function(){
-    let level= 1;
 
-    playButton.addEventListener('click', function () {
-      playButton.style.display= 'none';
-      // Raise the middle cup
-      $('.cup').eq(1).animate({bottom: '20%'});
-      ball.style.display = 'block';
+    level= 0;
+    speed=1000
+    score.innerHTML= `score: ${level}`;
 
-      // After 1.5 seconds, lower the cup and hide the ball
-      setTimeout(function () {
-        $('.cup').eq(1).animate({bottom: 0});
-        ball.style.display = 'none';
-      }, 1500);
+    speed_header.innerHTML= "normal"; // Initial speed
 
-      var numberOfIterations = level+8;
-      var currentIteration = 0;
-      let si=null;
-      clearInterval(si);
-      si = setInterval(shufflesCups, 1500);
-
-        function shufflesCups() {
-        if (currentIteration===numberOfIterations) {
-            clearInterval(si);
-            finishShuffle();
+    $("#checkbox").change(function() {
+        if(this.checked) {
+            speed_header.innerHTML='fast';
+            speed=500;
         } else {
-            currentIteration++;
-            let index=  Math.floor(Math.random() * 3);
-            shuffleCups(index);
-        }
+            speed_header.innerHTML='normal';
+            speed=1000;
         }
     });
+
+    playButton.addEventListener('click', function () {
+      if(mode==='ready'){
+        mode= 'play';
+        playButton.style.display= 'none';
+        p.innerHTML="";
+        // Raise the middle cup
+        $('.cup').eq(1).animate({bottom: '20%'});
+        ball.style.display = 'block';
+
+        // After 1.5 seconds, lower the cup and hide the ball
+        setTimeout(function () {
+            $('.cup').eq(1).animate({bottom: 0});
+            ball.style.display = 'none';
+        }, 1000);
+
+        var numberOfIterations = level+8;
+        var currentIteration = 0;
+        let si=null;
+        clearInterval(si);
+        si = setInterval(shufflesCups, speed+500);
+
+            function shufflesCups() {
+            if (currentIteration===numberOfIterations) {
+                clearInterval(si);
+                finishShuffle();
+            } else {
+                currentIteration++;
+                let index=  Math.floor(Math.random() * 3);
+                shuffleCups(index);
+            }
+            } 
+        } 
+        });
 
     function shuffleCups(i) {
         let i1= i+1;
@@ -45,41 +70,52 @@ $(document).ready(function(){
         // Animate cup2 to cup1's position
         $(`#cup${i2}`).animate({
             left: cup1InitialLeft
-        }, 1000);
+        }, speed);
 
         // Animate cup1 to rise a little above and alternate with cup2's position
         $(`#cup${i1}`).animate({ 
             left: cup2InitialLeft
-        }, 1000);
+        }, speed);
     }
 
     function finishShuffle() {
-      ball.position().left=  $('#cup1').position().left;
+      ball.style.left=  cups[1].style.left;
       p.innerHTML = "Tap which cup has the ball";
+      mode= 'pickCup';
       
     }
   });
 
   function revealCup(n){
-    const ballUnderCup = n===2;
+    if(mode==='pickCup'){
+        mode= 'ready';
+        let ballUnderCup = n===2;
 
-    if (ballUnderCup) {
-        $('#cup2').animate({bottom: '20%'});
-        ball.style.display = 'block';
-  
-        // After 1.5 seconds, lower the cup and hide the ball
-        setTimeout(function () {
-          $('#cup2').animate({bottom: 0});
-          ball.style.display = 'none';
-        }, 1500);
-        p.innerHTML = "Congratulations! You found the ball!";
-    } else {
-        $(`#cup${n}`).animate({bottom: '20%'});
-  
-        setTimeout(function () {
-          $(`#cup${n}`).animate({bottom: 0});
-        }, 1500);
-        p.innerHTML = "Sorry, you didn't find the ball. Try again!";
+        if (ballUnderCup) {
+            level++;
+            score.innerHTML= `score: ${level}`;
+            $('#cup2').animate({bottom: '20%'});
+            ball.style.display = 'block';
+    
+            // After 1.5 seconds, lower the cup and hide the ball
+            setTimeout(function () {
+            $('#cup2').animate({bottom: 0});
+            ball.style.display = 'none';
+            }, 1500);
+            p.innerHTML = "Congratulations! You found the ball!";
+        } else {
+            $(`#cup${n}`).animate({bottom: '20%'});
+    
+            setTimeout(function () {
+            $(`#cup${n}`).animate({bottom: 0});
+            }, 1500);
+            p.innerHTML = "Sorry, you didn't find the ball. Try again!";
+        }
+        setTimeout(function () { 
+            playButton.style.display= 'block';
+            p.innerHTML ='';
+            }, 2500);
+       
+        
     }
-    playButton.style.display= 'block';
 }

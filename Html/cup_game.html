@@ -8,7 +8,16 @@
 </head>
 <body>
     <h1>Magic Cups</h1>
+    <div class="info"><h2></h2></div>
+    <div class="speed-control">
+        <label class="switch">
+            <input id="checkbox" type="checkbox">
+            <span class="slider round"></span>
+        </label>
+        <h3 id="speed"></h3>
+    </div>
     <p></p>
+    <button class="play-button">Tap to play</button>
     <br>
     <div class="cups-container">
         <div class="cup" id="cup1" onclick="revealCup(1)">
@@ -24,7 +33,6 @@
             <img src="../img/MagicCups/yellow_ball.png" alt="Ball">
         </div>
     </div>
-    <button class="play-button">Tap to play</button>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../Js/test.js"></script>
 </body>
