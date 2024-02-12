@@ -1,15 +1,15 @@
-body {
-  background: linear-gradient(to bottom, #584cc7, #df4cc2);
-    background-size: cover;
-    background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    text-align: center;
+body {  
+  background-image: url('../img/bacground/background\ img.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
 }
   
 h1 {
