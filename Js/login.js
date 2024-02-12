@@ -67,6 +67,8 @@ const formOpenBtn = document.querySelector("#form-open"),
   signup_Button = document.querySelector("#signup_Now");
 document.addEventListener("DOMContentLoaded", showHome);
 formOpenBtn.addEventListener("click", () => home.classList.add("show"));
+const EXPMINUTES=2;
+let numOfTry=0;
 
 pwShowHide.forEach((icon) => {
   icon.addEventListener("click", () => {
@@ -91,8 +93,17 @@ loginBtn.addEventListener("click", (e) => {
   formContainer.classList.remove("active");
 });
 
-loginButton.addEventListener("click", (e) => {
+loginButton.addEventListener("click", (e) => { 
   e.preventDefault();
+  let timeExp= isBlocked();
+  if(timeExp!==-1){
+    // Convert milliseconds to seconds
+    var seconds = Math.floor((timeExp / 1000) % 60);
+    // Convert milliseconds to minutes
+    var minutes = Math.floor(timeExp / (1000 * 60));
+    alert(`Too many attempts Try again in ${minutes} minutes and ${seconds} seconds`);
+    return;
+  }
   let usernameValue =  document.querySelector("#username").value.trim();
   let passwordValue = document.querySelector("#password_login").value.trim();
 
@@ -104,7 +115,7 @@ loginButton.addEventListener("click", (e) => {
   if (authenticateUser(usernameValue, passwordValue)) {
       localStorage.setItem('username', usernameValue);
       const users = getUsersFromLocalStorage();
-      const userIndex = users.findIndex(user => user.username === username);
+      const userIndex = users.findIndex(user => user.username === usernameValue);
       const currentUser = users[userIndex];
       // קבלת מידע על הזמן הנוכחי
       const currentDate = new Date();
@@ -115,7 +126,15 @@ loginButton.addEventListener("click", (e) => {
       window.location.href = "Games_Home.html";
   } 
   else {
-    alert("Invalid username or password. Please try again.");
+      numOfTry++;
+      if(numOfTry>=3){
+        setLocalStorageExpiration('blocked',EXPMINUTES);
+        numOfTry=0;
+        alert(`Too many attempts Try again in ${EXPMINUTES} minutes`);
+      }
+      else{
+        alert("Invalid username or password. Please try again.");
+      }
   }
 
 });
@@ -164,3 +183,24 @@ signup_Button.addEventListener("click", (e) => {
   addUserToLocalStorage(newUser);
   alert("User registered successfully!");
 });
+
+
+// Function to set a variable in local storage with expiration time
+function setLocalStorageExpiration(key, expirationMinutes) {
+  const now = new Date();
+  const expiration = now.getTime() + (expirationMinutes * 60 * 1000); // Convert minutes to milliseconds
+  localStorage.setItem(key, expiration);
+}
+
+// Function to check if the user is blocked (if not return -1 if blocked return the timne left)
+function isBlocked() {
+  const expiration = localStorage.getItem('blocked');
+  if (!expiration) {
+      return -1; // Return true if the key doesn't exist (expired)
+  }
+  const now = new Date();
+  if(now.getTime() >= parseInt(expiration)){
+    return -1;
+  }
+  return parseInt(expiration) - now.getTime();
+}
