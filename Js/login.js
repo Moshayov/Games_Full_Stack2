@@ -1,12 +1,33 @@
 class User {
-  constructor(username, password, Simon_Score = 0, Cup_Score = 0) {
+  constructor(username, password, Simon_Score = 0, Cup_Score = 0,count=1,currentDate=new Date() ) {
+    this.currentDate=currentDate;
     this.username = username;
     this.password = password;
     this.Simon_Score = Simon_Score;
     this.Cup_Score = Cup_Score;
+    this.count = count;
   }
 }
 const USERS_KEY = "users";
+
+function displayLastLoginTime(lastLoginTime) {
+  const messageDiv = document.createElement("div");
+  messageDiv.classList.add("login-message");
+  messageDiv.textContent = `Last Login: ${lastLoginTime}`;
+  document.body.appendChild(messageDiv);
+  setTimeout(() => {
+    messageDiv.remove();
+  }, 5000);
+}
+
+function updateUser(username,Date) {
+  const users = getUsersFromLocalStorage();
+  const userIndex = users.findIndex(user => user.username === username);
+
+  const currentUser = users[userIndex];
+   currentUser.Date = Date;
+   currentUser.count = currentUser.count++;
+}
 
 function getUsersFromLocalStorage() {
   const usersJSON = localStorage.getItem(USERS_KEY);
@@ -82,7 +103,16 @@ loginButton.addEventListener("click", (e) => {
 
   if (authenticateUser(usernameValue, passwordValue)) {
       localStorage.setItem('username', usernameValue);
-       window.location.href = "Games_Home.html";
+      const users = getUsersFromLocalStorage();
+      const userIndex = users.findIndex(user => user.username === username);
+      const currentUser = users[userIndex];
+      // קבלת מידע על הזמן הנוכחי
+      const currentDate = new Date();
+      if(currentUser.count!=0){
+         displayLastLoginTime(user.currentDate);
+      }
+      updateUser(username,currentDate);
+      window.location.href = "Games_Home.html";
   } 
   else {
     alert("Invalid username or password. Please try again.");
