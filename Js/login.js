@@ -120,9 +120,9 @@ loginButton.addEventListener("click", (e) => {
       // קבלת מידע על הזמן הנוכחי
       const currentDate = new Date();
       if(currentUser.count!=0){
-         displayLastLoginTime(user.currentDate);
+         displayLastLoginTime(currentUser.currentDate);
       }
-      updateUser(username,currentDate);
+      updateUser(usernameValue,currentDate);
       window.location.href = "Games_Home.html";
   } 
   else {
