@@ -3,13 +3,28 @@ const p = document.querySelector('p');
 const cups = document.querySelectorAll('.cup');
 const playButton = document.querySelector('.play-button');
 const score= document.querySelector('.info h2');
+const slider=  document.querySelector('.slider');
+const speed_header=document.querySelector("#speed");
 let mode= 'ready'
 let level;
 let speed;
 $(document).ready(function(){
+
     level= 0;
-    speed=500
+    speed=1000
     score.innerHTML= `score: ${level}`;
+
+    speed_header.innerHTML= "normal"; // Initial speed
+
+    $("#checkbox").change(function() {
+        if(this.checked) {
+            speed_header.innerHTML='fast';
+            speed=500;
+        } else {
+            speed_header.innerHTML='normal';
+            speed=1000;
+        }
+    });
 
     playButton.addEventListener('click', function () {
       if(mode==='ready'){
