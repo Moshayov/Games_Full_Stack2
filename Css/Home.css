@@ -7,8 +7,8 @@
 /* Home */
 .home {
     display: grid;
-    gap: 1rem 1rem;
-    place-items: center; /* מקם את האלמנטים במרכז המסך */
+    gap: 2rem 1rem;
+    place-items: center;
     position: relative;
     height: 100vh;
     width: 100%;
@@ -60,6 +60,7 @@
   .nav_link,
   .button {
     color: #fff;
+    top:50px;
   }
   .nav_item {
     column-gap: 25px;
@@ -80,8 +81,46 @@
   height: 200px;
   width: 200px;
 }
+ /*Icon*/
+ .fa-user {
+  margin-top: 10px;
+  position: absolute;
+  top: 50%; 
+  transform: translateY(-50%); 
+  right: 80px; 
+  margin-right: 30px; 
+  color: rgba(80, 150, 10, 0.705);
+  font-weight: bold;
 
+}
+#username-text {
+  position: relative; 
+  top: 50%; 
+  transform: translateY(-50%);
+  left: 10px;
 
+}
+.user-info {
+font-weight: bold;
+display: flex ;
+align-items: center;
+right: 10px;
+
+}
+.fa-crown{
+  color: rgba(80, 150, 10, 0.705);
+  margin-top: 10px;
+  position: absolute; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  right:350px; 
+  margin-right: 30px; 
+
+}
+#High_Score{
+margin-left: 20px;
+
+}
 
 
 

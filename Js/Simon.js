@@ -9,7 +9,7 @@ let strict = false;
 let noise = true;
 let on = false;
 let win;
-
+let fail;
 const turnCounter = document.querySelector("#turn");
 const topLeft = document.querySelector("#topleft");
 const topRight = document.querySelector("#topright");
@@ -47,6 +47,7 @@ startButton.addEventListener('click', (event) => {
 
 function play() {
   win = false;
+  fail = false;
   order = [];
   playerOrder = [];
   flash = 0;
@@ -139,7 +140,7 @@ topLeft.addEventListener('click', (event) => {
     playerOrder.push(1);
     check();
     one();
-    if(!win) {
+    if(!win || !fail) {
       setTimeout(() => {
         clearColor();
       }, 300);
@@ -152,7 +153,7 @@ topRight.addEventListener('click', (event) => {
     playerOrder.push(2);
     check();
     two();
-    if(!win) {
+    if(!win || !fail) {
       setTimeout(() => {
         clearColor();
       }, 300);
@@ -165,7 +166,7 @@ bottomLeft.addEventListener('click', (event) => {
     playerOrder.push(3);
     check();
     three();
-    if(!win) {
+    if(!win || !fail) {
       setTimeout(() => {
         clearColor();
       }, 300);
@@ -178,7 +179,7 @@ bottomRight.addEventListener('click', (event) => {
     playerOrder.push(4);
     check();
     four();
-    if(!win) {
+    if(!win || !fail) {
       setTimeout(() => {
         clearColor();
       }, 300);
@@ -188,28 +189,34 @@ bottomRight.addEventListener('click', (event) => {
 
 function check() {
   if (playerOrder[playerOrder.length - 1] !== order[playerOrder.length - 1])
-    good = false;
-
-  if (playerOrder.length == 3 && good) {
-    winGame();
+  {
+    good = false;//הוא נפסל
+   
   }
 
-  if (good == false) {
+  if (playerOrder.length == 5 && good) {
+    winGame();
+  }
+//if he fail then i need to check if strict mode is on
+  if (!good &&!strict) {
     flashColor();
-    turnCounter.innerHTML = "NO!";
+    updateUserScore(usernameElement,turnCounter);
+    console.log(turnCounter);
+    turnCounter.innerHTML = "Fail!";
+    on = false;//end game
+    fail = true;
     setTimeout(() => {
       turnCounter.innerHTML = turn;
       clearColor();
-
       if (strict) {
         play();
-      } else {
+      }/* else {
         compTurn = true;
         flash = 0;
         playerOrder = [];
         good = true;
         intervalId = setInterval(gameTurn, 800);
-      }
+      }*/
     }, 800);
 
     noise = false;
@@ -226,9 +233,53 @@ function check() {
 
 }
 
+/*adding score of the highest score player*/ 
+var usernameElement = document.getElementById("username-text");
+usernameElement.textContent = username;
+
+high_score_user = user.Cup_Score + user.Simon_Score;
+var userScore = document.getElementById("High_Score");
+userScore.textContent = high_score_user;
+
+//high score among all the player
+const USERS_KEY = "users";
+
+function getUsersFromLocalStorage() {
+  const usersJSON = localStorage.getItem(USERS_KEY);
+  return usersJSON ? JSON.parse(usersJSON) : [];
+}
+
+function getHighestScoringUser() {
+  const users = getUsersFromLocalStorage();
+  let highestScoringUser = null;
+  let highestScore = 0;
+
+  users.forEach(user => {
+    if (user.Simon_Score > highestScore) {
+      highestScore = user.Simon_Score;
+      highestScoringUser = user;
+    }
+  });
+
+  return highestScoringUser;
+}
+const highestScoringUser = getHighestScoringUser();
+
+function updateUserScore(username, newScore) {
+  const users = getUsersFromLocalStorage();
+  const userIndex = users.findIndex(user => user.username === username);
+  if (userIndex !== -1) {
+    users[userIndex].Simon_Score = newScore;
+    saveUsersToLocalStorage(users);
+  }
+}
+/*Win*/
 function winGame() {
   flashColor();
+  updateUserScore(usernameElement,turnCounter);
+  console.log(turnCounter);
   turnCounter.innerHTML = "WIN!";
   on = false;
   win = true;
+
 }

@@ -5,28 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simon Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  
     <link href='https://fonts.googleapis.com/css?family=Original+Surfer&effect=emboss' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Css/Simon.css">
   
     <audio id="clip1">
-      <!--../Audio/pickmuted-f3-80486.mp3-->
-        <source src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"></source>
+        <source src="../Audio/clip1.mp3"></source>
     </audio>
     <audio id="clip2">
-        <source src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"></source>
+        <source src="../Audio/ckup2.mp3"></source>
     </audio>
     <audio id="clip3">
-        <source src="https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"></source>
+        <source src="../Audio/clip3.mp3"></source>
     </audio>
     <audio id="clip4">
-        <source src="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3"></source>
+        <source src="../Audio/clip4.mp3"></source>
     </audio>
 </head>
 <body>
-    <div id="Score_Table">
-        
-    </div>
+    <!-- Header -->
+    <header class="header">
+      <a href="../Html/Games_Home.html" id="logo"><img src="../img/logo/logo-removebg-preview.png"></a>
+        <div class="user-info">
+          <i class="fa fa-user" id="user-icon">
+           <span id="username-text"></span></i>
+        <div class="High_Score">
+          <i class="fas fa-crown" >
+          <span id="High_Score"></span></i>
+         </div>
+      </div>
+     </header>  
     <div id="outer-circle">
         <div id="topleft"></div>
         <div id="topright"></div>
@@ -48,8 +57,6 @@
           </div>
         </div>
       </div>
-    
       <script  src="../Js/Simon.js"></script>
-    
 </body>
 </html>

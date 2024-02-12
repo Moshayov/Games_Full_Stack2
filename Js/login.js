@@ -44,7 +44,6 @@ const formOpenBtn = document.querySelector("#form-open"),
   pwShowHide = document.querySelectorAll(".pw_hide"),
   loginButton = document.querySelector("#login_now"),
   signup_Button = document.querySelector("#signup_Now");
-
 document.addEventListener("DOMContentLoaded", showHome);
 formOpenBtn.addEventListener("click", () => home.classList.add("show"));
 
@@ -73,18 +72,16 @@ loginBtn.addEventListener("click", (e) => {
 
 loginButton.addEventListener("click", (e) => {
   e.preventDefault();
+  let usernameValue =  document.querySelector("#username").value.trim();
+  let passwordValue = document.querySelector("#password_login").value.trim();
 
-  const usernameInput = document.querySelector("#username").value.trim();
-  
-  const passwordInput = document.querySelector("#password_login").value.trim();
-
-  if (!usernameInput || !passwordInput) {
+  if (!usernameValue || !passwordValue) {
     alert("Please enter username and password.");
     return;
   }
 
-  if (authenticateUser(usernameInput, passwordInput)) {
-      localStorage.setItem('username', usernameInput);
+  if (authenticateUser(usernameValue, passwordValue)) {
+      localStorage.setItem('username', usernameValue);
        window.location.href = "Games_Home.html";
   } 
   else {
@@ -95,37 +92,45 @@ loginButton.addEventListener("click", (e) => {
 
 signup_Button.addEventListener("click", (e) => {
   e.preventDefault();
+  let flage= false;
+  let usernameValue =  document.querySelector("#username_sign_Up").value.trim();
+  let passwordValue = document.querySelector("#password_signUp").value.trim();
+  let passwordConfirmValue = document.querySelector("#Confirm_password").value.trim();
+  while(!flage)
+  {
+      let usernameValue =  document.querySelector("#username_sign_Up").value.trim();
+      let passwordValue = document.querySelector("#password_signUp").value.trim();
+      let passwordConfirmValue = document.querySelector("#Confirm_password").value.trim();
+      console.log(usernameValue);
+      console.log(passwordConfirmValue);
+      console.log(passwordValue);
+      if (!usernameValue || !passwordValue|| !passwordConfirmValue) {
+        alert("Please enter username  password and password Confirm.");
+        flage=false;
+        break;
+      }
 
-  const usernameInput = document.querySelector("#username").value.trim();
-  const passwordInput = document.querySelector("#password_signUp").value.trim();
-  const passwordConfirm = document.querySelector("#Confirm_password").value.trim();
+      if (passwordConfirmValue != passwordValue) {
+        console.log(passwordConfirmValue);
+        console.log(passwordValue);
+        alert("The passwords you entered do not match, please re-enter");
+        
+        flage=false;
+        return;
+      }
 
-  if (!usernameInput || !passwordInput || !passwordConfirm) {
-    alert("Please enter username  password and password Confirm.");
-    return;
+      // בדיקה האם המשתמש כבר קיים במערכת
+      if (getUserByUsername(usernameValue)) {
+        console.log(usernameValue)
+        alert("Username already exists. Please choose a different one.");
+        flage=false;
+        return;
+        }
+      flage = true;
   }
-
-  if (passwordConfirm != passwordInput) {
-    alert("The passwords you entered do not match, please re-enter");
-    return;
-  }
-
-  // בדיקה האם המשתמש כבר קיים במערכת
-  if (getUserByUsername(usernameInput)) {
-    alert("Username already exists. Please choose a different one.");
-    return;
-  }
-
+  console.log(usernameValue)
   // שמירת המשתמש החדש במערכת
-  const newUser = new User(usernameInput, passwordInput);
+  const newUser = new User(usernameValue, passwordValue);
   addUserToLocalStorage(newUser);
   alert("User registered successfully!");
 });
-/*Game Home*/
-const username = localStorage.getItem('username');
-const user = getUserByUsername(username);
-var usernameElement = document.getElementById("username-text");
-usernameElement.textContent = username;
-high_score = user.Cup_Score + user.Simon_Score;
-var userScore = document.getElementById("High_Score");
-userScore.textContent = high_score; 

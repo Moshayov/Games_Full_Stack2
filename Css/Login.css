@@ -69,11 +69,11 @@ a {
   font-size: 20px;
   color: #707070;
 }
-.input_box i.email,
+.input_box i.fa-user-circle,
 .input_box i.password {
   left: 0;
 }
-.input_box input:focus ~ i.email,
+.input_box input:focus ~ i.fa-user-circle,
 .input_box input:focus ~ i.password {
   color: #6ef738;
 }
@@ -141,7 +141,7 @@ a {
     pointer-events: none;
     transition: all 0.4s ease-out;
   }
-  /*button*/
+  /*button
 .button {
   padding: 6px 24px;
   border: 2px solid #fff;
@@ -151,4 +151,7 @@ a {
 }
 .button:active {
   transform: scale(0.98);
+}*/
+#form-open{
+  display: none;
 }

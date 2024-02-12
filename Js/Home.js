@@ -16,3 +16,13 @@ usernameElement.textContent = username;
 high_score = user.Cup_Score + user.Simon_Score;
 var userScore = document.getElementById("High_Score");
 userScore.textContent = high_score;
+document.addEventListener("DOMContentLoaded", function() {
+  const headerContainer = document.getElementById("header-container");
+  const headerPath = "header.html"; 
+
+  fetch(headerPath)
+    .then(response => response.text())
+    .then(headerHtml => {
+      headerContainer.innerHTML = headerHtml;
+    });
+});
