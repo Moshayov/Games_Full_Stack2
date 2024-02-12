@@ -94,6 +94,7 @@ $(document).ready(function(){
         if (ballUnderCup) {
             level++;
             score.innerHTML= `score: ${level}`;
+            updateUserScore(username,level);
             $('#cup2').animate({bottom: '20%'});
             ball.style.display = 'block';
     
@@ -118,4 +119,37 @@ $(document).ready(function(){
        
         
     }
+
+    
+}
+
+//to find the high score among all the player
+const USERS_KEY = "users";
+const username = localStorage.getItem('username');
+
+function getUsersFromLocalStorage() {
+    const usersJSON = localStorage.getItem(USERS_KEY);
+    return usersJSON ? JSON.parse(usersJSON) : [];
+  }
+  
+function updateUserScore(username, newScore) {
+    const users = getUsersFromLocalStorage();
+    const userIndex = users.findIndex(user => user.username === username);
+  
+    if (userIndex === -1) {
+      console.error("User not found in local storage!");
+      return;
+    }
+  
+    const currentUser = users[userIndex];
+    const currentScore = currentUser.Cup_Score;
+  
+    if (newScore > currentScore) {
+      currentUser.Cup_Score = newScore;
+      saveUsersToLocalStorage(users);
+    } 
+}
+
+function saveUsersToLocalStorage(users) {
+    localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
