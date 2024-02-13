@@ -1,3 +1,12 @@
+/*User login to the system
+If the user exists, he will have the option to log in by username and password, if he does not have the option to register in the system.
+When registering for the system, we checked whether the user already exists, if so, a message was issued to the user. If you do not check whether the passwords match, since this is the registration, there is a check that the password and the verification of the password match.
+When a user logs in there are some tests we did:
+1. That the username exists in the system.
+2. That the password and username match
+3. Checking if this is not the first time he logged in, then we will print him the last time he logged in.
+4. Testing whether trying to enter more information times then we will block.
+5. Updating the last entered date and the amount of entries */
 class User {
   constructor(username, password, Simon_Score = 0, Cup_Score = 0,count=1,currentDate=new Date() ) {
     this.currentDate=currentDate;
@@ -12,7 +21,6 @@ const USERS_KEY = "users";
 
 function displayDateMessage(Date) {
   let message = "";
-  let previousScoreMessage = "";
   message = `Last Login: ${Date}`;
   // Create a new div element
   const modal = document.createElement("div");
@@ -23,7 +31,6 @@ function displayDateMessage(Date) {
     <div class="modal-content">
       <span class="close">&times;</span>
       <p>${message}</p>
-      <p>${previousScoreMessage}</p>
     </div>
   `;
 
@@ -135,7 +142,6 @@ loginButton.addEventListener("click", (e) => {
       const currentDate = new Date();
       if(currentUser.count==0){
         updateUser(usernameValue,currentDate);
-        console.log("hii it me")
         window.location.href = "Games_Home.html";
       }
       updateUser(usernameValue,currentDate);

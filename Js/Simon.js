@@ -1,3 +1,14 @@
+/*A simon game is a game that works on the user's memory every time he receives a sequence of clicks that he is supposed to perform and at each stage it costs him more.
+We created variables to execute the game:
+1. An array of the order of play of the player and the system to check later that they are compatible with each other.
+2. variable disqualified, won, good, STRICT -> to notice whether the user won, that is to say, he reached the maximum level that I currently set, it is set to 5 so that we can see the result, but it can be any number.
+If the user is disqualified, it means that the sequence he made is not good, we will check the check box if the STRICT mode is on, then we will allow him to continue playing, but we will not increase his score for this round.
+If this mode is not active then we will send him a message according to the achievement he made.
+3. We added additional variables to perform tests which queue we are now and more.
+We have created different functions to execute the game like:
+Game mode creates a random order that consists of the 4 colors (buttons that we have).
+On the buttons we created clicking events and according to what was clicked we pushed into the sequence array what was clicked and called its corresponding function that would play the music according to what was clicked.
+During the game we changed his high score in the game and also changed the color of the buttons like in a real marking game */
 let order = [];
 let playerOrder = [];
 let flash;
@@ -58,15 +69,21 @@ userScore.textContent = high_score_user;
 const highestScoringUser = getHighestScoringUser();
 function displayResultMessage(result, newScore, currentScore, highestScoringUser) {
   let message = "";
-  let previousScoreMessage = "";
-
+  m="";
+  let previousScoreMessage="";
   // Checking the result and setting the message accordingly
   if (result === "win") {
-    message = `Congratulations! \n You have broken the Simon Game high score! 🏆 \n Previous High Score: ${highestScoringUser} \n Your Scoring User: ${newScore}`;
+    message = `Congratulations!  `;
+    m= `You have broken the Simon Game high score! 🏆`;
+    previousScoreMessage =  `\n Previous High Score: ${highestScoringUser} \n Your Scoring User: ${newScore}`;
+
   } else if (result === "breakPersonalBest") {
-    message = `Congratulations! \n You've broken your personal best high score! 🎉 \n  Previous High Score: ${currentScore} \n Your Scoring : ${newScore}`;
+    message = `Congratulations!  `;
+    m="\n You've broken your personal best high score! 🎉";
+    previousScoreMessage= `  Previous High Score: ${currentScore} \n Your Scoring : ${newScore}`;
   } else {
-    message = `Game Over! \n Your score: ${turn - 1}`;
+    message = `Game Over!`;
+    previousScoreMessage=` <br> Your score: ${turn - 1}`;
   }
   // Create a new div element
   const modal = document.createElement("div");
@@ -77,6 +94,7 @@ function displayResultMessage(result, newScore, currentScore, highestScoringUser
     <div class="modal-content">
       <span class="close">&times;</span>
       <p>${message}</p>
+      <p>${m}</p>
       <p>${previousScoreMessage}</p>
     </div>
   `;
@@ -344,16 +362,3 @@ function check() {
 
 }
 
-/*setTimeout(() => {
-      turnCounter.innerHTML = turn;
-      clearColor();
-      if (strict) {
-        play();
-      }/* else {
-        compTurn = true;
-        flash = 0;
-        playerOrder = [];
-        good = true;
-        intervalId = setInterval(gameTurn, 800);
-      }
-    }, 800);*/

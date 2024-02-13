@@ -1,4 +1,6 @@
-
+/*
+Issuing a username and high score for him and the other users
+*/
 function getUsersFromLocalStorage() {
     const usersJSON = localStorage.getItem(USERS_KEY);
     return usersJSON ? JSON.parse(usersJSON) : [];
