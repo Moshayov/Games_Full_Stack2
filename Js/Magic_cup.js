@@ -16,6 +16,7 @@ $(document).ready(function(){
 
     speed_header.innerHTML= "normal"; // Initial speed
 
+    //Changes the speed from fast to normal and vice versa
     $("#checkbox").change(function() {
         if(this.checked) {
             speed_header.innerHTML='fast';
@@ -26,21 +27,24 @@ $(document).ready(function(){
         }
     });
 
+    //Set a function when the player click play
     playButton.addEventListener('click', function () {
       if(mode==='ready'){
         mode= 'play';
         playButton.style.display= 'none';
         p.innerHTML="";
-        // Raise the middle cup
+        // Raise the middle cup and show the ball
         $('.cup').eq(1).animate({bottom: '20%'});
         ball.style.display = 'block';
 
-        // After 1.5 seconds, lower the cup and hide the ball
+        // After 1 second, lower the cup and hide the ball
         setTimeout(function () {
             $('.cup').eq(1).animate({bottom: 0});
             ball.style.display = 'none';
         }, 1000);
 
+        //set interval that shuffle the cups level+8 times 
+        //every so often according to the set speed
         var numberOfIterations = level+8;
         var currentIteration = 0;
         let si=null;
@@ -60,6 +64,7 @@ $(document).ready(function(){
         } 
         });
 
+    //shuffle cup i and cup i+1
     function shuffleCups(i) {
         let i1= i+1;
         let i2= i1%3+1;
@@ -78,6 +83,7 @@ $(document).ready(function(){
         }, speed);
     }
 
+    //tell the user it's time to pick a cup
     function finishShuffle() {
       ball.style.left=  cups[1].style.left;
       p.innerHTML = "Tap which cup has the ball";
@@ -86,6 +92,8 @@ $(document).ready(function(){
     }
   });
 
+  //if it's time for reavel cup it checks if he picked the right cup
+  //reveal the cup he pick and show message properly
   function revealCup(n){
     if(mode==='pickCup'){
         mode= 'ready';
@@ -123,7 +131,7 @@ $(document).ready(function(){
     
 }
 
-//to find the high score among all the player
+//get the user that plays right now
 const USERS_KEY = "users";
 const username = localStorage.getItem('username');
 
@@ -132,6 +140,7 @@ function getUsersFromLocalStorage() {
     return usersJSON ? JSON.parse(usersJSON) : [];
   }
   
+// if the user beat his own score update the local storage
 function updateUserScore(username, newScore) {
     const users = getUsersFromLocalStorage();
     const userIndex = users.findIndex(user => user.username === username);
