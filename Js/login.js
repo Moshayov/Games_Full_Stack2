@@ -9,7 +9,8 @@ When a user logs in there are some tests we did:
 5. Updating the last entered date and the amount of entries */
 class User {
   constructor(username, password, Simon_Score = 0, Cup_Score = 0,count=1,currentDate=new Date() ) {
-    this.currentDate=currentDate;
+    let Date_ = currentDate.toUTCString();
+    this.currentDate=Date_;
     this.username = username;
     this.password = password;
     this.Simon_Score = Simon_Score;
@@ -19,9 +20,9 @@ class User {
 }
 const USERS_KEY = "users";
 
-function displayDateMessage(Date) {
+function displayDateMessage(date) {
   let message = "";
-  message = `Last Login: ${Date}`;
+  message = `Last Login: ${date}`;
   // Create a new div element
   const modal = document.createElement("div");
   modal.classList.add("modal");
